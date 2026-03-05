@@ -1,0 +1,40 @@
+services:
+  catalogue-service:
+    build: ./catalogue-service
+    ports:
+      - "3001:3001"
+    networks:
+      - bricoloc-network
+
+  stock-service:
+    build: ./stock-service
+    ports:
+      - "3002:3002"
+    networks:
+      - bricoloc-network
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - catalogue-service
+      - stock-service
+    environment:
+      - CATALOGUE_URL=http://catalogue-service:3001
+      - STOCK_URL=http://stock-service:3002
+    networks:
+      - bricoloc-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api-gateway
+    networks:
+      - bricoloc-network
+
+networks:
+  bricoloc-network:
+    driver: bridge
