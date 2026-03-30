@@ -1,7 +1,16 @@
-FROM oven/bun:1
+FROM oven/bun:latest AS frontend
 WORKDIR /app
-COPY package*.json bun.lock ./
+RUN mkdir frontend
+COPY shared ./shared
+COPY frontend/package*.json frontend/bun.lock ./frontend/
+WORKDIR /app/frontend/
 RUN bun install
-COPY . .
+COPY ./frontend .
+RUN ls -a
+RUN bun run build
+
+FROM oven/bun:latest
+WORKDIR /app
+COPY --from=frontend /app/frontend/dist ./dist
 EXPOSE 5173
-CMD ["bun", "run", "dev", "--", "--host"]
+CMD [ "bunx", "serve", "-p", "5173", "./dist" ]

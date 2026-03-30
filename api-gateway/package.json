@@ -5,19 +5,15 @@
   "private": true,
   "scripts": {
     "dev": "bun --hot index.ts",
-    "start": "bun index.ts"
+    "build": "bun build index.ts --outdir dist --target=bun"
   },
   "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
     "typescript": "^5"
   },
   "dependencies": {
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
     "cors": "^2.8.6",
-    "express": "^5.2.1",
-    "http-proxy-middleware": "^3.0.5"
+    "express": "^5.2.1"
   }
 }

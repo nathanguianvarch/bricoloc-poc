@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useState } from "react";
 import { Tool } from "shared";
 
-const GATEWAY_URL = import.meta.env.VITE_GATEWAY_URL ?? "";
+const GATEWAY_URL = "http://localhost:3000";
 
 function ToolCardSkeleton() {
   return (
